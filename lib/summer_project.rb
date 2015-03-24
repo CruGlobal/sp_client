@@ -14,7 +14,7 @@ module SummerProject
     end
 
     def base_url
-      @base_url ||= "https://sp.campuscrusadeforchrist.com/"
+      @base_url ||= "https://smapp.cru.org/api/v1"
     end
 
   end
