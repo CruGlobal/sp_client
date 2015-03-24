@@ -33,19 +33,23 @@ module SummerProject
       url = SummerProject.base_url
       url += '/' unless url.last == '/'
       url += path
-      case method
-      when :post
-        RestClient.post(url, params, authorization: "Bearer #{SummerProject.access_token}", :timeout => -1) { |response, request, result, &block|
-          handle_response(response, request, result)
-        }
-      when :put
-        RestClient.put(url, params, authorization: "Bearer #{SummerProject.access_token}", :timeout => -1) { |response, request, result, &block|
-          handle_response(response, request, result)
-        }
-      else
-        RestClient::Request.execute(:method => method, :url => url, :headers => {params: params, authorization: "Bearer #{SummerProject.access_token}"}, :timeout => -1) { |response, request, result, &block|
-          handle_response(response, request, result)
-        }
+      begin
+        case method
+        when :post
+          RestClient.post(url, params, authorization: "Bearer #{SummerProject.access_token}", :timeout => -1) { |response, request, result, &block|
+            handle_response(response, request, result)
+          }
+        when :put
+          RestClient.put(url, params, authorization: "Bearer #{SummerProject.access_token}", :timeout => -1) { |response, request, result, &block|
+            handle_response(response, request, result)
+          }
+        else
+          RestClient::Request.execute(:method => method, :url => url, :headers => {params: params, authorization: "Bearer #{SummerProject.access_token}"}, :timeout => -1) { |response, request, result, &block|
+            handle_response(response, request, result)
+          }
+        end
+      rescue
+        raise "SP Client: An error occured while requesting #{url}."
       end
     end
 
