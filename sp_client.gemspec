@@ -18,7 +18,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_dependency('rest-client', '~> 1.8')
-  gem.add_dependency('oj', '~> 2.18')
+  gem.add_dependency('oj', '>= 2.18')
   gem.add_dependency('activesupport')
   gem.add_dependency('retryable-rb', '~> 1.1.0')
 
